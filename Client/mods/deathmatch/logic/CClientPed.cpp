@@ -5204,6 +5204,13 @@ void CClientPed::SetAlpha(unsigned char ucAlpha)
         if ( pClump ) g_pGame->GetVisibilityPlugins ()->SetClumpAlpha ( pClump, ucAlpha );
     }
     */
+
+    if (m_ucAlpha != ucAlpha) {
+        CLuaArguments Arguments;
+        Arguments.PushNumber(m_ucAlpha);
+        Arguments.PushNumber(ucAlpha);
+        CallEvent("onClientElementAlphaChange", Arguments, true);
+    }
     m_ucAlpha = ucAlpha;
 }
 
@@ -6066,8 +6073,17 @@ bool CClientPed::ReloadWeapon() noexcept
     auto* weapon = GetWeapon();
     auto* task = m_pTaskManager->GetTaskSecondary(TASK_SECONDARY_ATTACK);
 
-    if (!CanReloadWeapon() || (task && task->GetTaskType() == TASK_SIMPLE_USE_GUN))
+    if (!CanReloadWeapon() || (task && task->GetTaskType() == TASK_SIMPLE_USE_GUN) || IsReloadingWeapon())
         return false;
+
+    CLuaArguments arguments;
+    arguments.PushNumber(weapon->GetType());
+    arguments.PushNumber(weapon->GetAmmoTotal());
+    arguments.PushNumber(weapon->GetAmmoInClip());
+    if (!IS_PLAYER(this))
+        CallEvent("onClientPedWeaponReload", arguments, true);
+    else
+        CallEvent("onClientPlayerWeaponReload", arguments, true);
 
     weapon->SetState(WEAPONSTATE_RELOADING);
     return true;
