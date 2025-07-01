@@ -2636,6 +2636,7 @@ void CClientGame::AddBuiltInEvents()
     m_Events.AddEvent("onClientElementModelChange", "oldModel, newModel", nullptr, false);
     m_Events.AddEvent("onClientElementDimensionChange", "oldDimension, newDimension", nullptr, false);
     m_Events.AddEvent("onClientElementInteriorChange", "oldInterior, newInterior", nullptr, false);
+    m_Events.AddEvent("onClientElementAlphaChange", "oldAlpha, newAlpha", nullptr, false);
 
     // Player events
     m_Events.AddEvent("onClientPlayerJoin", "", NULL, false);
@@ -2664,6 +2665,7 @@ void CClientGame::AddBuiltInEvents()
     m_Events.AddEvent("onClientPlayerPickupHit", "pickup, matchingDimension", NULL, false);
     m_Events.AddEvent("onClientPlayerPickupLeave", "pickup, matchingDimension", NULL, false);
     m_Events.AddEvent("onClientPlayerNetworkStatus", "type, ticks", NULL, false);
+    m_Events.AddEvent("onClientPlayerWeaponReload", "weapon, ammo, ammoInClip ", nullptr, false);
 
     // Ped events
     m_Events.AddEvent("onClientPedDamage", "attacker, weapon, bodypart", NULL, false);
@@ -2675,6 +2677,7 @@ void CClientGame::AddBuiltInEvents()
     m_Events.AddEvent("onClientPedHeliKilled", "heli", NULL, false);
     m_Events.AddEvent("onClientPedHitByWaterCannon", "vehicle", NULL, false);
     m_Events.AddEvent("onClientPedStep", "foot", nullptr, false);
+    m_Events.AddEvent("onClientPedWeaponReload", "weapon, ammo, ammoInClip ", nullptr, false);
 
     // Vehicle events
     m_Events.AddEvent("onClientVehicleRespawn", "", NULL, false);
